@@ -12,7 +12,7 @@ public class HomePage {
         // Método para abrir el menu hamburguesa
 
             // Hacemos clic en el ícono del menú a traves de la clase de la etiqueta i
-            $(byClassName("fa-bars"))
+            $("button.btn.btn-secondary.ml-2.mr-3")
                     .shouldBe(visible)
                     .click();
 

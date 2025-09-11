@@ -29,7 +29,7 @@ public class LoginTest {
         webdriver().shouldHave(urlContaining(dotenv.get("HOME_URL")));
     }
 
-    // ... tu método navigateToModule ...
+    // Navigate to correspponding module.
     protected void navigateToModule(String mainMenuId, String subMenuId) {
         homePage.navigateTo(mainMenuId, subMenuId);
     }

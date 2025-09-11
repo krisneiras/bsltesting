@@ -11,7 +11,7 @@ public class ServerSelection {
         //Searching dropdown option by its text
         $("#server-dropdown").$(byText(server)).click();
         //Search login button by text
-        $(byText("Login")).click();
+        $("#select-server\\:loginBtn").click();
 
     }
 

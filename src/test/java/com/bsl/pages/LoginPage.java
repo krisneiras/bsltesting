@@ -7,8 +7,8 @@ public class LoginPage {
 
     public void login(String user, String password) {
 
-        $("#formid\\:user").setValue(user);
-        $("#formid\\:password").setValue(password);
+        $("#user").setValue(user);
+        $("#password").setValue(password);
         $("#formid\\:loginBtn").click();
 
     }
