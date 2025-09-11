@@ -2,9 +2,10 @@ package com.bsl.tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -108,8 +109,15 @@ public class ConsultTransactionTest extends LoginTest {
         performBasicSearch();
         $("#filtersForm\\:j_idt72").click();
         $$(".bi.bi-arrow-down-short").get(1).click();
-        $("filtersForm\\:corrections-select\\:0").click();
+        $("#filtersForm\\:corrections-select\\:0").click();
         $("body").click();
+        $(".btn.btn-outline-primary.mr-2").click();
+
+        ElementsCollection typeSale = $$x("//tbody[@id='transactions-table']//tr/td[9]");
+        for (SelenideElement cell : typeSale) {
+            cell.shouldHave(exactText("SALES"));
+        }
+
 
     }
 
