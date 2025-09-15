@@ -2,13 +2,11 @@ package com.bsl.tests;
 
 import com.bsl.pages.AuthPage;
 import com.bsl.pages.SideMenuPage;
-import com.codeborne.selenide.Browser;
-import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.*;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ExchangeRateTest {
 
@@ -18,7 +16,7 @@ public class ExchangeRateTest {
     SideMenuPage sideMenuPage = new SideMenuPage();
 
     @Test
-    public void testLoginFlow() {
+    public void updateExchangeRate() {
 
         Configuration.holdBrowserOpen = true;
 
@@ -27,14 +25,26 @@ public class ExchangeRateTest {
         $(byText("Exchange Rate")).click();
 
         $$("#dropdownMenuButton").get(1).click();
+        $("#store-er-input").setValue("Reference");
         $("#filtersForm\\:store-select\\:0").click();
         $("body").click();
 
         $$("#dropdownMenuButton").get(2).click();
+        $("#currency-er-input").setValue("British Pound");
         $("#filtersForm\\:currency-select\\:11").click();
         $("body").click();
 
         $(".btn.btn-outline-primary.mr-2").click();
+        $("input[value='Details']").click();
+
+        $("#filtersForm\\:basic-text8").setValue("1.15");
+        $("input[value='Update']").click();
+        $("input[value='Close X']").click();
+
+        ElementsCollection exchangeRate = $$x("//tbody[@id='exchangerate-table']//tr/td[5]");
+        for (SelenideElement cell : exchangeRate) {
+            cell.shouldHave(Condition.exactText("1.15"));
+        }
 
     }
 
