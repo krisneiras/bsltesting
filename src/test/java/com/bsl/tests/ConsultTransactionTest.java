@@ -61,8 +61,24 @@ public class ConsultTransactionTest extends LoginTest {
         $("span#frmPanel\\:j_idt217\\:out_format").shouldHave(text("5074355"));
     }
 
-    //Turnover - only declarations??
-    //Article price -  Only Sales??
+    //Turnover - only transaction types : declarations?
+
+    @Test
+    void articlePrice() {
+
+        performBasicSearch();
+        $("#filtersForm\\:j_idt62").click();
+        $("body").click();
+        $("#filtersForm\\:priceFilterID input[placeholder='From']").setValue("108");
+        $("#filtersForm\\:priceFilterID input[placeholder='To']").setValue("108");
+        $(".btn.btn-outline-primary.mr-2").click();
+
+        //Test will pass when only transaction types "Sale" or "return" are shown in the table
+        $$("input[value='View']").get(24).shouldBe(visible).click();
+        $("span#frmPanel\\:j_idt217\\:out_format").shouldHave(text("108"));
+
+
+    }
 
     @Test
     void loyaltyProfile(){
@@ -79,6 +95,23 @@ public class ConsultTransactionTest extends LoginTest {
     }
 
     //Total
+    @Test
+    void ticketTotal() {
+
+        performBasicSearch();
+        $("#filtersForm\\:j_idt66").click();
+        $("body").click();
+        $("#filtersForm\\:totalFilterID input[placeholder='From']").setValue("108");
+        $("#filtersForm\\:totalFilterID input[placeholder='To']").setValue("108");
+        $(".btn.btn-outline-primary.mr-2").click();
+
+        ElementsCollection amount = $$x("//tbody[@id='transactions-table']//tr/td[7]");
+        for (SelenideElement cell : amount) {
+            System.out.println("Valor encontrado: " + cell.getText());
+            cell.shouldHave(exactText("108"));
+        }
+
+    }
 
     @Test
     void mediaPayment(){
@@ -101,10 +134,33 @@ public class ConsultTransactionTest extends LoginTest {
     }
 
     //Paid value
+    @Test
+    void paidValue() {
+
+        performBasicSearch();
+
+        $("#filtersForm\\:j_idt68").click();
+        $$(".bi.bi-arrow-down-short").get(1).click();
+        $("#filtersForm\\:mediapay-select\\:64").click();
+        $("body").click();
+
+        $(byText("Add Filters")).click();
+        $("#filtersForm\\:j_idt70").click();
+        $("body").click();
+        $("#filtersForm\\:paidValFilterID input[placeholder='From']").setValue("108");
+        $("#filtersForm\\:paidValFilterID input[placeholder='To']").setValue("108");
+        $(".btn.btn-outline-primary.mr-2").click();
+
+
+        $$("input[value='View']").get(2).shouldBe(visible).click();
+        $("span#frmPanel\\:j_idt217\\:out_format").shouldHave(text("108"));
+
+
+    }
 
     //Corrections
     @Test
-    public void filterByCorrections() {
+    void filterByCorrections() {
 
         performBasicSearch();
         $("#filtersForm\\:j_idt72").click();
@@ -115,15 +171,14 @@ public class ConsultTransactionTest extends LoginTest {
 
         ElementsCollection typeSale = $$x("//tbody[@id='transactions-table']//tr/td[9]");
         for (SelenideElement cell : typeSale) {
-            cell.shouldHave(exactText("SALES"));
+            cell.shouldHave(exactText("SALE"));
         }
-
 
     }
 
     //Operators
     @Test
-    public void filterByOperators(){
+    void filterByOperators(){
 
         performBasicSearch();
         $("#filtersForm\\:j_idt74").click();
@@ -141,7 +196,7 @@ public class ConsultTransactionTest extends LoginTest {
 
     //Flight
     @Test
-    public void flightNumber() {
+    void flightNumber() {
 
         performBasicSearch();
         $("#filtersForm\\:j_idt80").click();
@@ -156,7 +211,7 @@ public class ConsultTransactionTest extends LoginTest {
 
     //Item description
     @Test
-    public void itemDescription() {
+    void itemDescription() {
 
         performBasicSearch();
         $("#filtersForm\\:j_idt84").click();
