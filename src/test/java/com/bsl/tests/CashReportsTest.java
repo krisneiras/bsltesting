@@ -1,6 +1,7 @@
 package com.bsl.tests;
 
 import com.codeborne.selenide.*;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import static com.codeborne.selenide.Condition.text;
@@ -10,9 +11,9 @@ import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 
 
 
-public class CashReportsTest extends LoginTest {
-    @Test
+public class CashReportsTest extends BaseClassTest {
 
+    @Test
     void confirmTillSettlement(){
         enterSessionReport();
 
@@ -106,7 +107,7 @@ public class CashReportsTest extends LoginTest {
 
     private void enterSessionReport () {
         Configuration.holdBrowserOpen = true;
-        navigateToModule("menu-item_3","");
+        sideMenuPage.navigateToModule("menu-item_3","");
 
         $(byText("Session Report")).click();
 

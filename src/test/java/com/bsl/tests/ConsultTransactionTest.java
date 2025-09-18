@@ -1,16 +1,16 @@
 package com.bsl.tests;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ConsultTransactionTest extends LoginTest {
+public class ConsultTransactionTest extends BaseClassTest {
 
     @Test
     void basicFilters() {
@@ -227,9 +227,7 @@ public class ConsultTransactionTest extends LoginTest {
 
     private void performBasicSearch(){
 
-        Configuration.holdBrowserOpen = true;
-
-        navigateToModule("menu-item_5", "");
+        sideMenuPage.navigateToModule("menu-item_5", "");
         $("#section_5").$$("ul.list-group > li").get(1).shouldBe(visible).click();
         $(".form-control.daterange").setValue(dotenv.get("TEST_DATE"));
         $(".applyBtn.btn.btn-sm.btn-primary").click();

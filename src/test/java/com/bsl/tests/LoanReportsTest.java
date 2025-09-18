@@ -10,12 +10,12 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 import static com.codeborne.selenide.Condition.visible;
 
-public class LoanReportsTest extends LoginTest {
+public class LoanReportsTest extends BaseClassTest {
     @Test
 
     void enterLoans() {
         Configuration.holdBrowserOpen = true;
-        navigateToModule("menu-item_3","");
+        sideMenuPage.navigateToModule("menu-item_3","");
         $(byText("Loan reports")).shouldBe(visible).click(); //Los elementos de la lista no tienen un submenuID
         webdriver().shouldHave(urlContaining(dotenv.get("LOAN_URL")));
 
@@ -70,7 +70,7 @@ public class LoanReportsTest extends LoginTest {
 //        }
 //
 //        if (!success) {
-//        throw new AssertionError("Ningún input produjo el mensaje esperado de éxito");
+//        throw new AssertionError("Ningún input lanzó el mensaje esperado de éxito");
 //    }
 
 

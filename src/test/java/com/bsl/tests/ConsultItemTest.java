@@ -3,20 +3,17 @@ package com.bsl.tests;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Test;
-import com.codeborne.selenide.Configuration;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class ConsultItemTest extends LoginTest {
+public class ConsultItemTest extends BaseClassTest {
 
     @Test
     void setFilters() {
 
-        Configuration.holdBrowserOpen = true;
-        navigateToModule("menu-item_5","");
+        sideMenuPage.navigateToModule("menu-item_5","");
         $(byText("Search Item")).shouldBe(visible).click();
 
         $(byText("0 selected")).click();
